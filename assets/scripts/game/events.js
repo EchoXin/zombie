@@ -3,12 +3,11 @@
 const api = require('./api');
 const ui = require('./ui');
 
-const onCreate = function (event) {
-  event.preventDefault();
-
+const onCreate = function () {
   api.create()
     .done(ui.success)
     .fail(ui.onError);
+
 };
 
 let mainDiv = document.getElementById('maindiv');
@@ -22,7 +21,7 @@ let scores = 0;
 let set;
 
 // character object
-const character = function (hp, X, Y, sizeX, sizeY, score, dietime, sudu, imagesrc) {
+const character = function (hp, X, Y, sizeX, sizeY, score, dietime, speed, imagesrc) {
   this.characterX = X;
   this.characterY = Y;
   this.imagenode = null;
@@ -33,26 +32,26 @@ const character = function (hp, X, Y, sizeX, sizeY, score, dietime, sudu, images
   this.characterisdie = false;
   this.characterdietimes = 0;
   this.characterdietime = dietime;
-  this.charactersudu = sudu;
+  this.characterspeed = speed;
 
   // moving object
   this.characterMove = function () {
     if (scores <= 50000) {
-      this.imagenode.style.left = this.imagenode.offsetLeft + this.charactersudu + 'px';
+      this.imagenode.style.left = this.imagenode.offsetLeft + this.characterspeed + 'px';
     } else
     if (scores > 50000 && scores <= 100000) {
-      this.imagenode.style.left = this.imagenode.offsetLeft + this.charactersudu + 1 + 'px';
+      this.imagenode.style.left = this.imagenode.offsetLeft + this.characterspeed + 1 + 'px';
     } else
     if (scores > 100000 && scores <= 150000) {
-      this.imagenode.style.left = this.imagenode.offsetLeft + this.charactersudu + 2 + 'px';
+      this.imagenode.style.left = this.imagenode.offsetLeft + this.characterspeed + 2 + 'px';
     } else
     if (scores > 150000 && scores <= 200000) {
-      this.imagenode.style.left = this.imagenode.offsetLeft + this.charactersudu + 3 + 'px';
+      this.imagenode.style.left = this.imagenode.offsetLeft + this.characterspeed + 3 + 'px';
     } else
     if (scores > 200000 && scores <= 300000) {
-      this.imagenode.style.left = this.imagenode.offsetLeft + this.charactersudu + 4 + 'px';
+      this.imagenode.style.left = this.imagenode.offsetLeft + this.characterspeed + 4 + 'px';
     } else {
-      this.imagenode.style.left = this.imagenode.offsetLeft + this.charactersudu + 5 + 'px';
+      this.imagenode.style.left = this.imagenode.offsetLeft + this.characterspeed + 5 + 'px';
     }
   };
 
@@ -103,8 +102,8 @@ const random = function (min, max) {
   return Math.floor(min + Math.random() * (max - min));
 };
 
-const Zombie = function (hp, a, b, sizeX, sizeY, score, dietime, sudu, imagesrc) {
-  character.call(this, hp, random(a, b), -100, sizeX, sizeY, score, dietime, sudu, imagesrc);
+const Zombie = function (hp, a, b, sizeX, sizeY, score, dietime, speed, imagesrc) {
+  character.call(this, hp, random(a, b), 0, sizeX, sizeY, score, dietime, speed, imagesrc);
   this.imagenode.setAttribute('id', 'zombie');
 };
 
@@ -226,8 +225,9 @@ const start = function () {
 
   // create zombies
   if (mark === 20) {
-
-    zombies.push(new Zombie(6, 25, 500, 80, 100, 1, 360, random(1, 3), 'assets/scripts/image/zombie.gif'));
+    let a = mainDiv.clientTop;
+    let b = a + mainDiv.clientHeight - 70;
+    zombies.push(new Zombie(6, a, b, 80, 100, 1, 360, random(1, 3), 'assets/scripts/image/zombie.gif'));
     mark = 0;
   }
 
@@ -283,6 +283,7 @@ const start = function () {
             selfPokemon.imagenode.src = 'assets/scripts/image/pokemon.gif';
             enddiv.style.display = 'block';
             characterscore.innerHTML = scores;
+
             if (document.removeEventListener) {
               mainDiv.removeEventListener('mousemove', yidong, true);
               bodyobj.removeEventListener('mousemove', bianjie, true);
@@ -292,6 +293,7 @@ const start = function () {
             }
 
             clearInterval(set);
+
           }
         }
 
@@ -324,11 +326,13 @@ const start = function () {
       }
     }
   }
+  api.update();
 };
 
 // start handler
 
-const begin = function () {
+const begin = function (event) {
+  event.preventDefault();
 
   startdiv.style.display = 'none';
   mainDiv.style.display = 'block';
@@ -337,6 +341,7 @@ const begin = function () {
 
   // run start
   set = setInterval(start, 20);
+  onCreate();
 };
 
 //game over
@@ -347,7 +352,7 @@ const jixu = function () {
 const addHandlers = () => {
   $('#startbutton').on('click', begin);
   // $('#jixu').on('click', jixu);
-  $('.new-game').on('click', onCreate);
+  // $('.new-game').on('click', onCreate);
 };
 
 module.exports = {

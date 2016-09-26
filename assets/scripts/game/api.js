@@ -2,6 +2,8 @@
 
 const app = require('../app');
 const authApi = require('../auth/ui.js');
+let gameId;
+
 // const ui = require('./ui');
 // const getFormFields = require('../../../lib/get-form-fields');
 
@@ -15,26 +17,28 @@ const create = function () {
     },
     data: {
       game: {
-        zombie: 20,
+        zombie: 0,
       },
     },
-  });
+  }).then(data => gameId = data.game.id);
 };
 
 
 
-// const update = function (data) {
-//   return $.ajax({
-//     url: app.api + '/games/' + gameId,
-//     method: 'PATCH',
-//     headers: {
-//       Authorization: 'Token token=' + authApi.app.user.token,
-//     },
-//     data: {
-//       game: data,
-//     },
-//   });
-// };
+const update = function (data) {
+  return $.ajax({
+    url: app.api + '/games/' + gameId,
+    method: 'PATCH',
+    headers: {
+      Authorization: 'Token token=' + authApi.app.user.token,
+    },
+    data: {
+      game: {
+        zombie: 1,
+      },
+    },
+  });
+};
 //
 // const onUpdate = function (event) {
 //   let data = getFormFields(this);
@@ -139,7 +143,7 @@ module.exports = {
   create,
 
   // getAllDiary,
-  // update,
+  update,
   // destroy,
   // editDiary,
   // onUpdate,
