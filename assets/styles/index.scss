@@ -118,6 +118,7 @@ footer {
 #startdiv{
     width: 1000px;
     height: 568px;
+    background-color: green;
 }
 button{
     outline: none;
@@ -136,6 +137,7 @@ button{
     width: 1000px;
     height: 568px;
     display: none;
+    background-color: grey;
 }
 #maindiv img{
     position: absolute;
@@ -206,7 +208,7 @@ button{
     border: 1px solid gray;
     border-radius: 30px;
 }
-#live-pokemon{
+#pokemon{
   width: 60px;
   height: 70px;
 }
