@@ -36,23 +36,8 @@ const character = function (hp, X, Y, sizeX, sizeY, score, dietime, speed, image
 
   // moving object
   this.characterMove = function () {
-    if (scores <= 50000) {
-      this.imagenode.style.left = this.imagenode.offsetLeft + this.characterspeed + 'px';
-    } else
-    if (scores > 50000 && scores <= 100000) {
-      this.imagenode.style.left = this.imagenode.offsetLeft + this.characterspeed + 1 + 'px';
-    } else
-    if (scores > 100000 && scores <= 150000) {
-      this.imagenode.style.left = this.imagenode.offsetLeft + this.characterspeed + 2 + 'px';
-    } else
-    if (scores > 150000 && scores <= 200000) {
-      this.imagenode.style.left = this.imagenode.offsetLeft + this.characterspeed + 3 + 'px';
-    } else
-    if (scores > 200000 && scores <= 300000) {
-      this.imagenode.style.left = this.imagenode.offsetLeft + this.characterspeed + 4 + 'px';
-    } else {
-      this.imagenode.style.left = this.imagenode.offsetLeft + this.characterspeed + 5 + 'px';
-    }
+
+    this.imagenode.style.left = this.imagenode.offsetLeft + this.characterspeed + 'px';
   };
 
   this.init = function () {
