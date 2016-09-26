@@ -7,8 +7,9 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
  */
 
 body {
+    position: relative;
     margin-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-    background: url('https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTHhifIejqgbHpi-2UAUJyXNN3Tasae5BZSBO62IKD7yZPiTRUD');
+    // background: url('https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTHhifIejqgbHpi-2UAUJyXNN3Tasae5BZSBO62IKD7yZPiTRUD');
     background-size: cover;
 }
 
@@ -96,44 +97,7 @@ footer {
     }
 }
 
-.my-diary{
-  position:relative;
-  margin-top: 100px;
-}
 
-.hide{
-  display: none;
-}
-
-.single-diary{
-  margin:80px;
-}
-
-.diary-content{
-  color: #4c4a37;
-  font-family: 'Source Sans Pro', sans-serif;
-  font-size: 18px;
-  line-height: 32px;
-}
-
-  .diary-title {
-    color: #7c795d;
-    font-family: 'Trocchi', serif;
-    font-size: 45px;
-    font-weight: normal;
-    line-height: 48px;
-  }
-  .diary-body{
-    margin:0 auto;
-    height: 80vh;
-    width: 60%;
-  }
-
-
-  .diary-date{
-    float:right;
-    line-height: 50px;
-  }
 
 .email, .password, .confirm-password{
   margin:5px;
@@ -142,4 +106,117 @@ footer {
 
 .header-image{
   font-family: 'Trocchi', serif;
+}
+
+
+
+
+#contentdiv{
+    position: absolute;
+    left: 20px;
+}
+#startdiv{
+    width: 1000px;
+    height: 568px;
+}
+button{
+    outline: none;
+}
+#startdiv button{
+    position: absolute;
+    top: 500px;
+    left: 82px;
+    width: 150px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 30px;
+    background-color: #c4c9ca;
+}
+#maindiv{
+    width: 1000px;
+    height: 568px;
+    display: none;
+}
+#maindiv img{
+    position: absolute;
+    z-index: 1;
+}
+#scorediv{
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: none;
+}
+#scorediv{
+    font-size: 18px;
+    font-weight: bold;
+}
+#suspenddiv{
+    position: absolute;
+    top: 210px;
+    left: 82px;
+    display: none;
+    z-index: 2;
+}
+#suspenddiv button{
+    width: 150px;
+    height: 30px;
+    margin-bottom: 20px;
+    border: 1px solid black;
+    border-radius: 30px;
+    background-color: #c4c9ca;
+}
+#enddiv{
+    position: absolute;
+    top: 210px;
+    left: 75px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    text-align: center;
+    background-color:#d7ddde;
+    display: none;
+    z-index: 2;
+}
+.plantext{
+    width: 160px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+}
+#planscore{
+    width: 160px;
+    height: 80px;
+    line-height: 80px;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    font-size: 16px;
+    font-weight: bold;
+}
+#enddiv div{
+    width: 160px;
+    height: 50px;
+}
+#enddiv div button{
+    margin-top:10px ;
+    width: 90px;
+    height: 30px;
+    border: 1px solid gray;
+    border-radius: 30px;
+}
+#live-pokemon{
+  width: 60px;
+  height: 70px;
+}
+
+#zombie{
+  width: 60px;
+  height: 70px;
+}
+
+#fire{
+  width: 20px;
+  height: 15px;
 }
