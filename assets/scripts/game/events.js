@@ -139,7 +139,7 @@ let bianjie = function() {
   let oevent = window.event || arguments[0];
   let bodyobjX = oevent.clientX;
   let bodyobjY = oevent.clientY;
-  if (bodyobjX < 505 || bodyobjX > 815 || bodyobjY < 0 || bodyobjY > 568) {
+  if (bodyobjX < 0 || bodyobjX > 815 || bodyobjY < 0 || bodyobjY > 500) {
     mainDiv.removeEventListener('mousemove', yidong, true);
 
   } else {
