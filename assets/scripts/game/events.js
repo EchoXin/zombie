@@ -3,7 +3,7 @@
 const api = require('./api');
 const ui = require('./ui');
 
-const onCreate = function () {
+const onCreate = function() {
   api.create()
     .done(ui.success)
     .fail(ui.onError);
@@ -21,7 +21,7 @@ let scores = 0;
 let set;
 
 // character object
-const character = function (hp, X, Y, sizeX, sizeY, score, dietime, speed, imagesrc) {
+const character = function(hp, X, Y, sizeX, sizeY, score, dietime, speed, imagesrc) {
   this.characterX = X;
   this.characterY = Y;
   this.imagenode = null;
@@ -35,12 +35,12 @@ const character = function (hp, X, Y, sizeX, sizeY, score, dietime, speed, image
   this.characterspeed = speed;
 
   // moving object
-  this.characterMove = function () {
+  this.characterMove = function() {
 
     this.imagenode.style.left = this.imagenode.offsetLeft + this.characterspeed + 'px';
   };
 
-  this.init = function () {
+  this.init = function() {
     this.imagenode = document.createElement('img');
     this.imagenode.style.top = this.characterX + 'px';
     this.imagenode.style.left = this.characterY + 'px';
@@ -52,7 +52,7 @@ const character = function (hp, X, Y, sizeX, sizeY, score, dietime, speed, image
 };
 
 // fire object
-const fire = function (X, Y, sizeX, sizeY, imagesrc) {
+const fire = function(X, Y, sizeX, sizeY, imagesrc) {
   this.fireX = X;
   this.fireY = Y;
   this.fireimage = null;
@@ -61,11 +61,11 @@ const fire = function (X, Y, sizeX, sizeY, imagesrc) {
   this.firesizeY = sizeY;
 
   // firemove
-  this.firemove = function () {
+  this.firemove = function() {
     this.fireimage.style.left = this.fireimage.offsetLeft - 20 + 'px';
   };
 
-  this.init = function () {
+  this.init = function() {
     this.fireimage = document.createElement('img');
     this.fireimage.style.left = this.fireX + 'px';
     this.fireimage.style.top = this.fireY + 'px';
@@ -78,22 +78,22 @@ const fire = function (X, Y, sizeX, sizeY, imagesrc) {
 };
 
 // create fire
-const Oddfire = function (X, Y) {
+const Oddfire = function(X, Y) {
   fire.call(this, X, Y, 6, 14, 'assets/scripts/image/fire.png');
 };
 
 // create zombie
-const random = function (min, max) {
+const random = function(min, max) {
   return Math.floor(min + Math.random() * (max - min));
 };
 
-const Zombie = function (hp, a, b, sizeX, sizeY, score, dietime, speed, imagesrc) {
+const Zombie = function(hp, a, b, sizeX, sizeY, score, dietime, speed, imagesrc) {
   character.call(this, hp, random(a, b), 0, sizeX, sizeY, score, dietime, speed, imagesrc);
   this.imagenode.setAttribute('id', 'zombie');
 };
 
 // create pokemon
-const Pokemon = function (X, Y) {
+const Pokemon = function(X, Y) {
   let imagesrc = '/assets/scripts/image/pokemon.gif';
   character.call(this, 1, X, Y, 66, 80, 0, 660, 0, imagesrc);
   this.imagenode.setAttribute('id', 'pokemon');
@@ -103,10 +103,9 @@ const Pokemon = function (X, Y) {
 let selfPokemon = new Pokemon(284, 700);
 
 let livePokemon = document.getElementById('pokemon');
-let yidong = function () {
+let yidong = function() {
 
   let oevent = window.event || arguments[0];
-  // let chufa = oevent.srcElement||oevent.target;
   let selfPokemonX = oevent.clientX;
   let selfPokemonY = oevent.clientY;
   livePokemon.style.left = selfPokemonX - selfPokemon.charactersizeX / 2 + 'px';
@@ -115,30 +114,20 @@ let yidong = function () {
 
 // pause the game
 let number = 0;
-let pause = function () {
+let pause = function() {
   if (number === 0) {
     suspenddiv.style.display = 'block';
-    if (document.removeEventListener) {
-      mainDiv.removeEventListener('mousemove', yidong, true);
-      bodyobj.removeEventListener('mousemove', bianjie, true);
-    } else
-    if (document.detachEvent) {
-      mainDiv.detachEvent('onmousemove', yidong);
-      bodyobj.detachEvent('onmousemove', bianjie);
-    }
+
+    mainDiv.removeEventListener('mousemove', yidong, true);
+    bodyobj.removeEventListener('mousemove', bianjie, true);
 
     clearInterval(set);
     number = 1;
   } else {
     suspenddiv.style.display = 'none';
-    if (document.addEventListener) {
-      mainDiv.addEventListener('mousemove', yidong, true);
-      bodyobj.addEventListener('mousemove', bianjie, true);
-    } else
-    if (document.attachEvent) {
-      mainDiv.attachEvent('onmousemove', yidong);
-      bodyobj.attachEvent('onmousemove', bianjie);
-    }
+    mainDiv.addEventListener('mousemove', yidong, true);
+    bodyobj.addEventListener('mousemove', bianjie, true);
+
 
     set = setInterval(start, 20);
     number = 0;
@@ -146,49 +135,31 @@ let pause = function () {
 };
 
 // test if out of side
-let bianjie = function () {
+let bianjie = function() {
   let oevent = window.event || arguments[0];
   let bodyobjX = oevent.clientX;
   let bodyobjY = oevent.clientY;
   if (bodyobjX < 505 || bodyobjX > 815 || bodyobjY < 0 || bodyobjY > 568) {
-    if (document.removeEventListener) {
-      mainDiv.removeEventListener('mousemove', yidong, true);
-    } else if (document.detachEvent) {
-      mainDiv.detachEvent('onmousemove', yidong);
-    }
+    mainDiv.removeEventListener('mousemove', yidong, true);
+
   } else {
-    if (document.addEventListener) {
-      mainDiv.addEventListener('mousemove', yidong, true);
-    } else if (document.attachEvent) {
-      mainDiv.attachEvent('nomousemove', yidong);
-    }
+    mainDiv.addEventListener('mousemove', yidong, true);
+
   }
 };
 
 let bodyobj = document.getElementsByTagName('body')[0];
-if (document.addEventListener) {
 
-  mainDiv.addEventListener('mousemove', yidong, true);
+mainDiv.addEventListener('mousemove', yidong, true);
 
-  mainDiv.addEventListener('click', pause, true);
+selfPokemon.imagenode.addEventListener('click', pause, true);
 
-  bodyobj.addEventListener('mousemove', bianjie, true);
+bodyobj.addEventListener('mousemove', bianjie, true);
 
-  suspenddiv.getElementsByTagName('button')[0].addEventListener('click', pause, true);
+suspenddiv.getElementsByTagName('button')[0].addEventListener('click', pause, true);
 
-  suspenddiv.getElementsByTagName('button')[2].addEventListener('click', jixu, true);
-} else if (document.attachEvent) {
 
-  mainDiv.attachEvent('onmousemove', yidong);
 
-  selfPokemon.imagenode.attachEvent('onclick', pause);
-
-  bodyobj.attachEvent('onmousemove', bianjie);
-
-  suspenddiv.getElementsByTagName('button')[0].attachEvent('onclick', pause);
-
-  suspenddiv.getElementsByTagName('button')[2].attachEvent('click', jixu, true);
-}
 
 selfPokemon.imagenode.style.display = 'none';
 
@@ -199,7 +170,8 @@ let mark = 0;
 let backgroundPositionY = 0;
 
 // game start
-const start = function () {
+const start = function() {
+
   mainDiv.style.backgroundPositionY = backgroundPositionY + 'px';
   backgroundPositionY += 0.5;
   if (backgroundPositionY === 1000) {
@@ -316,7 +288,7 @@ const start = function () {
 
 // start handler
 
-const begin = function (event) {
+const begin = function(event) {
   event.preventDefault();
 
   startdiv.style.display = 'none';
@@ -330,9 +302,7 @@ const begin = function (event) {
 };
 
 //game over
-const jixu = function () {
-  location.reload(true);
-};
+
 
 const addHandlers = () => {
   $('#startbutton').on('click', begin);
