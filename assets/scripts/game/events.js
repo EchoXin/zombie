@@ -107,7 +107,7 @@ let yidong = function() {
 
   let oevent = window.event || arguments[0];
   let selfPokemonX = oevent.clientX;
-  let selfPokemonY = oevent.clientY;
+  let selfPokemonY = oevent.clientY - 30;
   livePokemon.style.left = selfPokemonX - selfPokemon.charactersizeX / 2 + 'px';
   livePokemon.style.top = selfPokemonY - selfPokemon.charactersizeY / 2 + 'px';
 };
