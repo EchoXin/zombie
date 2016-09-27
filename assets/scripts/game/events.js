@@ -148,6 +148,10 @@ let bianjie = function() {
   }
 };
 
+let quit = function() {
+  startdiv.style.display = 'block';
+  mainDiv.style.display = 'none';
+}
 let bodyobj = document.getElementsByTagName('body')[0];
 
 mainDiv.addEventListener('mousemove', yidong, true);
@@ -158,6 +162,7 @@ bodyobj.addEventListener('mousemove', bianjie, true);
 
 suspenddiv.getElementsByTagName('button')[0].addEventListener('click', pause, true);
 
+suspenddiv.getElementsByTagName('button')[1].addEventListener('click', quit, true);
 
 
 
@@ -237,17 +242,11 @@ const start = function() {
         if (zombies[j].imagenode.offsetLeft + zombies[j].charactersizeX >= selfPokemon.imagenode.offsetLeft && zombies[j].imagenode.offsetLeft <= selfPokemon.imagenode.offsetLeft + selfPokemon.charactersizeX) {
           if (zombies[j].imagenode.offsetTop + zombies[j].charactersizeY >= selfPokemon.imagenode.offsetTop + 40 && zombies[j].imagenode.offsetTop <= selfPokemon.imagenode.offsetTop - 20 + selfPokemon.charactersizeY) {
             //collision
-            selfPokemon.imagenode.src = 'assets/scripts/image/pokemon.gif';
             enddiv.style.display = 'block';
             characterscore.innerHTML = scores;
-
-            if (document.removeEventListener) {
+            api.update(scores);
               mainDiv.removeEventListener('mousemove', yidong, true);
               bodyobj.removeEventListener('mousemove', bianjie, true);
-            } else if (document.detachEvent) {
-              mainDiv.detachEvent('onmousemove', yidong);
-              bodyobj.removeEventListener('mousemove', bianjie, true);
-            }
 
             clearInterval(set);
 
@@ -283,7 +282,7 @@ const start = function() {
       }
     }
   }
-  api.update();
+
 };
 
 // start handler
@@ -306,8 +305,6 @@ const begin = function(event) {
 
 const addHandlers = () => {
   $('#startbutton').on('click', begin);
-  // $('#jixu').on('click', jixu);
-  // $('.new-game').on('click', onCreate);
 };
 
 module.exports = {

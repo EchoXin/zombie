@@ -26,6 +26,7 @@ const create = function () {
 
 
 const update = function (data) {
+  console.log(data);
   return $.ajax({
     url: app.api + '/games/' + gameId,
     method: 'PATCH',
@@ -34,7 +35,7 @@ const update = function (data) {
     },
     data: {
       game: {
-        zombie: 1,
+        zombie: data,
       },
     },
   });
@@ -141,9 +142,9 @@ const update = function (data) {
 //
 module.exports = {
   create,
-
-  // getAllDiary,
   update,
+  // getAllDiary,
+
   // destroy,
   // editDiary,
   // onUpdate,
