@@ -118,7 +118,6 @@ footer {
 #startdiv{
     width: 800px;
     height: 500px;
-    background-color: green;
 }
 button{
     outline: none;
@@ -138,7 +137,7 @@ button{
     width: 800px;
     height: 500px;
     display: none;
-    background-color: grey;
+    background-image: url('image/background.jpg');;
 }
 #maindiv img{
     position: absolute;
@@ -214,12 +213,12 @@ button{
   height: 70px;
 }
 
-#zombie{
+.zombie{
   width: 60px;
   height: 70px;
 }
 
-#fire{
+.fire{
   width: 20px;
   height: 15px;
 }
