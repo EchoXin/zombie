@@ -19,6 +19,7 @@ let enddiv = document.getElementById('enddiv');
 let characterscore = document.getElementById('characterscore');
 let scores = 0;
 let set;
+let zombieSet;
 
 // character object
 const character = function(hp, X, Y, sizeX, sizeY, score, dietime, speed, imagesrc) {
@@ -141,7 +142,7 @@ let bianjie = function() {
   let oevent = window.event || arguments[0];
   let bodyobjX = oevent.clientX;
   let bodyobjY = oevent.clientY;
-  if (bodyobjX < 0 || bodyobjX > mainDiv.offsetWidth || bodyobjY < 0 || bodyobjY > 500) {
+  if (bodyobjX < 0 || bodyobjX > 1000 || bodyobjY < 0 || bodyobjY > 500) {
     mainDiv.removeEventListener('mousemove', yidong, true);
 
   } else {
@@ -181,6 +182,7 @@ let zombies = [];
 
 let fires = [];
 let mark = 0;
+let mark2 = 0;
 let backgroundPositionY = 0;
 
 // game start
@@ -196,13 +198,25 @@ const start = function() {
   mark++;
 
   // create zombies
-  if (mark === 20) {
+  if (mark === 30) {
+    mark2 ++;
     let a = mainDiv.clientTop;
     let b = a + mainDiv.clientHeight - 70;
-    zombies.push(new Zombie(4, a, b, 60, 70, 1, 360, random(1, 3), 'assets/styles/image/zombie.gif'));
-    let zombieBoss = new Zombie(8, a, b, 80, 100, 1, 360, random(4, 6), 'assets/styles/image/zombie-boss.gif')
-    zombieBoss.imagenode.setAttribute('class', 'zombie-boss');
-    zombies.push(zombieBoss);
+    let c = a + mainDiv.clientHeight - 150;
+
+
+      zombies.push(new Zombie(5, a, b, 60, 70, 1, 360, random(1, 5), 'assets/styles/image/zombie.gif'));
+
+
+     if (mark2 % 10 === 0) {
+       let zombieBoss = new Zombie(10, a, c, 130, 150, 3, 2000, random(1, 5), 'assets/styles/image/zombie-boss.gif');
+
+       zombieBoss.imagenode.setAttribute('class', 'zombie-boss');
+       zombies.push(zombieBoss);
+     }
+
+
+
 
     mark = 0;
   }
@@ -215,7 +229,7 @@ const start = function() {
     }
 
     // delete zombies if go outside
-    if (zombies[i].imagenode.offsetTop > 800) {
+    if (zombies[i].imagenode.offsetTop > 750) {
       mainDiv.removeChild(zombies[i].imagenode);
       zombies.splice(i, 1);
       zombieslen--;
@@ -253,7 +267,7 @@ const start = function() {
     for (let j = 0; j < zombieslen; j++) {
       //collision test
       if (zombies[j].characterisdie === false) {
-        if (zombies[j].imagenode.offsetLeft + zombies[j].charactersizeX >= selfPokemon.imagenode.offsetLeft && zombies[j].imagenode.offsetLeft <= selfPokemon.imagenode.offsetLeft + selfPokemon.charactersizeX) {
+        if (zombies[j].imagenode.offsetLeft + zombies[j].charactersizeX -10 >= selfPokemon.imagenode.offsetLeft && zombies[j].imagenode.offsetLeft <= selfPokemon.imagenode.offsetLeft + selfPokemon.charactersizeX) {
           if (zombies[j].imagenode.offsetTop + zombies[j].charactersizeY >= selfPokemon.imagenode.offsetTop  && zombies[j].imagenode.offsetTop <= selfPokemon.imagenode.offsetTop + selfPokemon.charactersizeY) {
             //collision
             enddiv.style.display = 'block';
@@ -322,17 +336,46 @@ const begin = function(event) {
   mainDiv.style.display = 'block';
   selfPokemon.imagenode.style.display = 'block';
   scorediv.style.display = 'block';
+  $('.before-start').css('display', 'none');
+
 
   // run start
-  set = setInterval(start, 60);
+  set = setInterval(start, 20);
   onCreate();
 };
 
 //game over
+const onGetRanking = function () {
+  console.log('show');
+  api.getGames()
+    .done(api.displayRanking)
+    .fail(ui.onError);
+};
+
+const showGameHistory = function(data) {
+  let total = data.games.length;
+  let highest = data.games[total - 1].zombie;
+  let lowest = data.games[0].zombie;
+
+  $('#total-games').html(`${total}`);
+  $('#highest-score').html(`${highest}`);
+  $('#lowest-score').html(`${lowest}`);
+
+};
+const GameHistory = function () {
+  api.getMyGames()
+    .done(data => showGameHistory(data))
+    .fail(ui.onError);
+};
+
+
 
 
 const addHandlers = () => {
   $('#startbutton').on('click', begin);
+  $('#show-ranking').on('click', onGetRanking);
+  $('#my-games').on('click', GameHistory);
+
 };
 
 module.exports = {

@@ -25,19 +25,26 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href='#' data-toggle="modal" data-target='#sign-in'>Sign in</a>
+                        <a class='after-sign-in'href='#' data-toggle="modal" data-target='#sign-in'>Sign in</a>
                     </li>
                     <li>
-                        <a href='#' data-toggle="modal" data-target='#sign-up'>Sign up</a>
+                        <a class='after-sign-in' href='#' data-toggle="modal" data-target='#sign-up'>Sign up</a>
                     </li>
                     <li>
-                        <a href='#' data-toggle="modal" data-target='#change-password'>Change password</a>
+                        <a href='#' data-toggle="modal" data-target='#change-password' id='change-password'>Change password</a>
                     </li>
                     <li>
                         <a href='#' id='sign-out'>Sign out</a>
                     </li>
-
-
+                    <li>
+                        <a href='#' id='startbutton'>Start game</a>
+                    </li>
+                    <li>
+                        <a href='#' id='show-ranking'>Ranking</a>
+                    </li>
+                    <li>
+                        <a href='#' id='my-games'>Game History</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -102,11 +109,12 @@
 
 
 
-        <!-- Footer -->
 
 
-        <div id="startdiv">
-          <button id='startbutton'>Start</button>
+
+        <div class='before-start' id="startdiv">
+          <img id='logo' src="assets/styles/image/pokemon.gif">
+          <span>Let's Play!</span>
       </div>
       <div id="maindiv">
         <div id="scorediv">
@@ -125,7 +133,14 @@
     </div>
 
 
-
+    <div id='ranking'>
+    </div>
+    <div id='game-history'>
+      <p>Total Games: <span id='total-games'></span></p>
+      <p>Hightest Score: <span id='highest-score'></span></p>
+      <p>Lowest Score: <span id='lowest-score'></span></p>
+      <button id='delete-history'>Delete History</button>
+    </div>
 
     </body>
 </html>
