@@ -92,10 +92,12 @@ const Zombie = function(hp, a, b, sizeX, sizeY, score, dietime, speed, imagesrc)
   this.imagenode.setAttribute('class', 'zombie');
 };
 
+
+
 // create pokemon
 const Pokemon = function(X, Y) {
   let imagesrc = '/assets/styles/image/pokemon.gif';
-  character.call(this, 1, X, Y, 66, 80, 0, 660, 0, imagesrc);
+  character.call(this, 1, X, Y, 60, 70, 0, 660, 0, imagesrc);
   this.imagenode.setAttribute('id', 'pokemon');
 };
 
@@ -139,7 +141,7 @@ let bianjie = function() {
   let oevent = window.event || arguments[0];
   let bodyobjX = oevent.clientX;
   let bodyobjY = oevent.clientY;
-  if (bodyobjX < 0 || bodyobjX > 815 || bodyobjY < 0 || bodyobjY > 500) {
+  if (bodyobjX < 0 || bodyobjX > mainDiv.offsetWidth || bodyobjY < 0 || bodyobjY > 500) {
     mainDiv.removeEventListener('mousemove', yidong, true);
 
   } else {
@@ -197,7 +199,11 @@ const start = function() {
   if (mark === 20) {
     let a = mainDiv.clientTop;
     let b = a + mainDiv.clientHeight - 70;
-    zombies.push(new Zombie(6, a, b, 80, 100, 1, 360, random(1, 3), 'assets/styles/image/zombie.gif'));
+    zombies.push(new Zombie(4, a, b, 60, 70, 1, 360, random(1, 3), 'assets/styles/image/zombie.gif'));
+    let zombieBoss = new Zombie(8, a, b, 80, 100, 1, 360, random(4, 6), 'assets/styles/image/zombie-boss.gif')
+    zombieBoss.imagenode.setAttribute('class', 'zombie-boss');
+    zombies.push(zombieBoss);
+
     mark = 0;
   }
 
@@ -248,7 +254,7 @@ const start = function() {
       //collision test
       if (zombies[j].characterisdie === false) {
         if (zombies[j].imagenode.offsetLeft + zombies[j].charactersizeX >= selfPokemon.imagenode.offsetLeft && zombies[j].imagenode.offsetLeft <= selfPokemon.imagenode.offsetLeft + selfPokemon.charactersizeX) {
-          if (zombies[j].imagenode.offsetTop + zombies[j].charactersizeY >= selfPokemon.imagenode.offsetTop + 40 && zombies[j].imagenode.offsetTop <= selfPokemon.imagenode.offsetTop - 20 + selfPokemon.charactersizeY) {
+          if (zombies[j].imagenode.offsetTop + zombies[j].charactersizeY >= selfPokemon.imagenode.offsetTop  && zombies[j].imagenode.offsetTop <= selfPokemon.imagenode.offsetTop + selfPokemon.charactersizeY) {
             //collision
             enddiv.style.display = 'block';
             enddiv.getElementsByTagName('button')[0].addEventListener('click', quit, true);
@@ -267,13 +273,12 @@ const start = function() {
         if (zombies[j].characterhp === 0) {
           scores = scores + zombies[j].characterscore;
           scorelabel.innerHTML = scores;
-          zombies[j].imagenode.src = zombies[j].characterboomimage;
           zombies[j].characterisdie = true;
         }
 
         if ((fires[k].fireimage.offsetLeft + fires[k].firesizeX > zombies[j].imagenode.offsetLeft) && (fires[k].fireimage.offsetLeft < zombies[j].imagenode.offsetLeft + zombies[j].charactersizeX)) {
           if (fires[k].fireimage.offsetTop <= zombies[j].imagenode.offsetTop + zombies[j].charactersizeY && fires[k].fireimage.offsetTop + fires[k].firesizeY >= zombies[j].imagenode.offsetTop) {
-            //敌机血量减子弹攻击力
+
             zombies[j].characterhp = zombies[j].characterhp - fires[k].fireattach;
             //zombie died
             if (zombies[j].characterhp === 0) {
@@ -302,6 +307,8 @@ const begin = function(event) {
   event.preventDefault();
   $('.fire').remove();
   $('.zombie').remove();
+  $('.zombie-boss').remove();
+
   enddiv.style.display = 'none';
   suspenddiv.style.display = 'none';
   number = 0;
@@ -317,7 +324,7 @@ const begin = function(event) {
   scorediv.style.display = 'block';
 
   // run start
-  set = setInterval(start, 20);
+  set = setInterval(start, 60);
   onCreate();
 };
 
