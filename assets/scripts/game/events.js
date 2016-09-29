@@ -95,7 +95,7 @@ const Zombie = function (hp, a, b, sizeX, sizeY, score, dietime, speed, imagesrc
 
 // create pokemon
 const Pokemon = function (X, Y) {
-  let imagesrc = '/assets/styles/image/pokemon.gif';
+  let imagesrc = 'assets/styles/image/pokemon.gif';
   character.call(this, 1, X, Y, 60, 70, 0, 660, 0, imagesrc);
   this.imagenode.setAttribute('id', 'pokemon');
 };
