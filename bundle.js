@@ -356,7 +356,7 @@ webpackJsonp([0],[
 
 	// create pokemon
 	var Pokemon = function Pokemon(X, Y) {
-	  var imagesrc = '/assets/styles/image/pokemon.gif';
+	  var imagesrc = 'assets/styles/image/pokemon.gif';
 	  character.call(this, 1, X, Y, 60, 70, 0, 660, 0, imagesrc);
 	  this.imagenode.setAttribute('id', 'pokemon');
 	};
