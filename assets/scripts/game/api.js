@@ -68,6 +68,13 @@ const displayRanking = function(data){
   $('#ranking').modal('show');
 };
 
+const cleanHistory = () => $.ajax({
+  url: app.api + '/mygames',
+  method: 'DELETE',
+  headers: {
+    Authorization: 'Token token=' + app.user.token,
+  },
+});
 
 module.exports = {
   create,
@@ -75,5 +82,5 @@ module.exports = {
   getGames,
   displayRanking,
   getMyGames,
-
+  cleanHistory,
 };

@@ -353,9 +353,14 @@ const onGetRanking = function () {
 };
 
 const showGameHistory = function(data) {
-  let total = data.games.length;
-  let highest = data.games[total - 1].zombie;
-  let lowest = data.games[0].zombie;
+  let total = 0;
+  let highest = 0;
+  let lowest = 0
+  if(data.games[0]){
+  total = data.games.length;
+  highest = data.games[total - 1].zombie;
+  lowest = data.games[0].zombie;
+}
 
   $('#total-games').html(`${total}`);
   $('#highest-score').html(`${highest}`);
@@ -367,15 +372,25 @@ const GameHistory = function () {
   api.getMyGames()
     .done(data => showGameHistory(data))
     .fail(ui.onError);
+
 };
 
-
+const OnCleanHistory = function (event) {
+  event.preventDefault();
+  api.cleanHistory()
+      .done(ui.success)
+      .fail(ui.failure);
+  $('#total-games').html('0');
+  $('#highest-score').html('0');
+  $('#lowest-score').html('0');
+};
 
 
 const addHandlers = () => {
   $('#startbutton').on('click', begin);
   $('#show-ranking').on('click', onGetRanking);
   $('#game-history-button').on('click', GameHistory);
+  $('#clean-history').on('click',OnCleanHistory);
 
 };
 
