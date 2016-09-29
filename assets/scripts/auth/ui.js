@@ -4,7 +4,7 @@ const app = require('../app');
 
 const signInSuccess = (data) => {
   app.user = data.user;
-  $('#change-password').css('display', 'block');
+  $('#change-password-button').css('display', 'block');
   $('#sign-out').css('display', 'block');
   $('#startbutton').css('display', 'block');
   $('#rank').css('display', 'block');
@@ -22,7 +22,7 @@ const failure = (error) => {
 
 const signOutSuccess = () => {
   delete app.user;
-  $('#change-password').css('display', 'none');
+  $('#change-password-button').css('display', 'none');
   $('#sign-out').css('display', 'none');
   $('#startbutton').css('display', 'none');
   $('#rank').css('display', 'none');
