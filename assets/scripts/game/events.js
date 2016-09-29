@@ -106,7 +106,7 @@ const Pokemon = function(X, Y) {
 let selfPokemon = new Pokemon(284, 700);
 
 let livePokemon = document.getElementById('pokemon');
-let yidong = function() {
+let mouseMove = function() {
 
   let oevent = window.event || arguments[0];
   let selfPokemonX = oevent.clientX;
@@ -121,15 +121,15 @@ let pause = function() {
   if (number === 0) {
     suspenddiv.style.display = 'block';
 
-    mainDiv.removeEventListener('mousemove', yidong, true);
-    bodyobj.removeEventListener('mousemove', bianjie, true);
+    mainDiv.removeEventListener('mousemove', mouseMove, true);
+    bodyobj.removeEventListener('mousemove', boundary, true);
 
     clearInterval(set);
     number = 1;
   } else {
     suspenddiv.style.display = 'none';
-    mainDiv.addEventListener('mousemove', yidong, true);
-    bodyobj.addEventListener('mousemove', bianjie, true);
+    mainDiv.addEventListener('mousemove', mouseMove, true);
+    bodyobj.addEventListener('mousemove', boundary, true);
 
 
     set = setInterval(start, 20);
@@ -138,15 +138,15 @@ let pause = function() {
 };
 
 // test if out of side
-let bianjie = function() {
+let boundary = function() {
   let oevent = window.event || arguments[0];
   let bodyobjX = oevent.clientX;
   let bodyobjY = oevent.clientY;
-  if (bodyobjX < 0 || bodyobjX > 1000 || bodyobjY < 0 || bodyobjY > 500) {
-    mainDiv.removeEventListener('mousemove', yidong, true);
+  if (bodyobjX < 0 || bodyobjX > 1000 || bodyobjY < 50 || bodyobjY > 530) {
+    mainDiv.removeEventListener('mousemove', mouseMove, true);
 
   } else {
-    mainDiv.addEventListener('mousemove', yidong, true);
+    mainDiv.addEventListener('mousemove', mouseMove, true);
 
   }
 };
@@ -163,11 +163,11 @@ let bodyobj = document.getElementsByTagName('body')[0];
 
 const reset = function() {
 
-mainDiv.addEventListener('mousemove', yidong, true);
+mainDiv.addEventListener('mousemove', mouseMove, true);
 
 selfPokemon.imagenode.addEventListener('click', pause, true);
 
-bodyobj.addEventListener('mousemove', bianjie, true);
+bodyobj.addEventListener('mousemove', boundary, true);
 
 suspenddiv.getElementsByTagName('button')[0].addEventListener('click', pause, true);
 
@@ -274,8 +274,8 @@ const start = function() {
             enddiv.getElementsByTagName('button')[0].addEventListener('click', quit, true);
 
             characterscore.innerHTML = scores;
-              mainDiv.removeEventListener('mousemove', yidong, true);
-              bodyobj.removeEventListener('mousemove', bianjie, true);
+              mainDiv.removeEventListener('mousemove', mouseMove, true);
+              bodyobj.removeEventListener('mousemove', boundary, true);
 
             clearInterval(set);
 
