@@ -1,6 +1,6 @@
 'use strict';
 
-const success = (data) => {
+const success = function () {
   console.log('create success');
 };
 

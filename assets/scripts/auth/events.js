@@ -6,10 +6,8 @@ const api = require('./api');
 const ui = require('./ui');
 
 const onSignUp = function (event) {
-  console.log('something');
   let data = getFormFields(event.target);
   event.preventDefault();
-  console.log(data);
   api.signUp(data)
       .done(ui.success)
       .fail(ui.failure);
@@ -23,7 +21,6 @@ const onSignIn = function (event) {
       .done(ui.signInSuccess)
       .fail(ui.failure);
   $('#sign-in').modal('hide');
-  console.log(data);
 };
 
 const onChangePassword = (event) => {
@@ -32,7 +29,6 @@ const onChangePassword = (event) => {
   api.changePassword(data)
       .done(ui.success)
       .fail(ui.failure);
-  console.log(data);
   $('#change-password').modal('hide');
 };
 

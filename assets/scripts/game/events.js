@@ -3,7 +3,7 @@
 const api = require('./api');
 const ui = require('./ui');
 
-const onCreate = function() {
+const onCreate = function () {
   api.create()
     .done(ui.success)
     .fail(ui.onError);
@@ -22,7 +22,7 @@ let set;
 let zombieSet;
 
 // character object
-const character = function(hp, X, Y, sizeX, sizeY, score, dietime, speed, imagesrc) {
+const character = function (hp, X, Y, sizeX, sizeY, score, dietime, speed, imagesrc) {
   this.characterX = X;
   this.characterY = Y;
   this.imagenode = null;
@@ -36,12 +36,12 @@ const character = function(hp, X, Y, sizeX, sizeY, score, dietime, speed, images
   this.characterspeed = speed;
 
   // moving object
-  this.characterMove = function() {
+  this.characterMove = function () {
 
     this.imagenode.style.left = this.imagenode.offsetLeft + this.characterspeed + 'px';
   };
 
-  this.init = function() {
+  this.init = function () {
     this.imagenode = document.createElement('img');
     this.imagenode.style.top = this.characterX + 'px';
     this.imagenode.style.left = this.characterY + 'px';
@@ -53,7 +53,7 @@ const character = function(hp, X, Y, sizeX, sizeY, score, dietime, speed, images
 };
 
 // fire object
-const fire = function(X, Y, sizeX, sizeY, imagesrc) {
+const fire = function (X, Y, sizeX, sizeY, imagesrc) {
   this.fireX = X;
   this.fireY = Y;
   this.fireimage = null;
@@ -62,11 +62,11 @@ const fire = function(X, Y, sizeX, sizeY, imagesrc) {
   this.firesizeY = sizeY;
 
   // firemove
-  this.firemove = function() {
+  this.firemove = function () {
     this.fireimage.style.left = this.fireimage.offsetLeft - 20 + 'px';
   };
 
-  this.init = function() {
+  this.init = function () {
     this.fireimage = document.createElement('img');
     this.fireimage.style.left = this.fireX + 'px';
     this.fireimage.style.top = this.fireY + 'px';
@@ -79,24 +79,22 @@ const fire = function(X, Y, sizeX, sizeY, imagesrc) {
 };
 
 // create fire
-const Oddfire = function(X, Y) {
+const Oddfire = function (X, Y) {
   fire.call(this, X, Y, 6, 14, 'assets/styles/image/fire.png');
 };
 
 // create zombie
-const random = function(min, max) {
+const random = function (min, max) {
   return Math.floor(min + Math.random() * (max - min));
 };
 
-const Zombie = function(hp, a, b, sizeX, sizeY, score, dietime, speed, imagesrc) {
+const Zombie = function (hp, a, b, sizeX, sizeY, score, dietime, speed, imagesrc) {
   character.call(this, hp, random(a, b), 0, sizeX, sizeY, score, dietime, speed, imagesrc);
   this.imagenode.setAttribute('class', 'zombie');
 };
 
-
-
 // create pokemon
-const Pokemon = function(X, Y) {
+const Pokemon = function (X, Y) {
   let imagesrc = '/assets/styles/image/pokemon.gif';
   character.call(this, 1, X, Y, 60, 70, 0, 660, 0, imagesrc);
   this.imagenode.setAttribute('id', 'pokemon');
@@ -106,7 +104,7 @@ const Pokemon = function(X, Y) {
 let selfPokemon = new Pokemon(284, 700);
 
 let livePokemon = document.getElementById('pokemon');
-let mouseMove = function() {
+let mouseMove = function () {
 
   let oevent = window.event || arguments[0];
   let selfPokemonX = oevent.clientX;
@@ -115,9 +113,23 @@ let mouseMove = function() {
   livePokemon.style.top = selfPokemonY - selfPokemon.charactersizeY / 2 + 'px';
 };
 
+// test if out of side
+let boundary = function () {
+  let oevent = window.event || arguments[0];
+  let bodyobjX = oevent.clientX;
+  let bodyobjY = oevent.clientY;
+  if (bodyobjX < 0 || bodyobjX > 1000 || bodyobjY < 50 || bodyobjY > 520) {
+    mainDiv.removeEventListener('mousemove', mouseMove, true);
+
+  } else {
+    mainDiv.addEventListener('mousemove', mouseMove, true);
+
+  }
+};
+
 // pause the game
 let number = 0;
-let pause = function() {
+let pause = function () {
   if (number === 0) {
     suspenddiv.style.display = 'block';
 
@@ -131,62 +143,44 @@ let pause = function() {
     mainDiv.addEventListener('mousemove', mouseMove, true);
     bodyobj.addEventListener('mousemove', boundary, true);
 
-
     set = setInterval(start, 20);
     number = 0;
   }
 };
 
-// test if out of side
-let boundary = function() {
-  let oevent = window.event || arguments[0];
-  let bodyobjX = oevent.clientX;
-  let bodyobjY = oevent.clientY;
-  if (bodyobjX < 0 || bodyobjX > 1000 || bodyobjY < 50 || bodyobjY > 530) {
-    mainDiv.removeEventListener('mousemove', mouseMove, true);
-
-  } else {
-    mainDiv.addEventListener('mousemove', mouseMove, true);
-
-  }
-};
-
-let quit = function() {
+let quit = function () {
   startdiv.style.display = 'block';
   mainDiv.style.display = 'none';
   api.update(scores);
 
-}
-
+};
 
 let bodyobj = document.getElementsByTagName('body')[0];
 
-const reset = function() {
+const reset = function () {
 
-mainDiv.addEventListener('mousemove', mouseMove, true);
+  mainDiv.addEventListener('mousemove', mouseMove, true);
 
-selfPokemon.imagenode.addEventListener('click', pause, true);
+  selfPokemon.imagenode.addEventListener('click', pause, true);
 
-bodyobj.addEventListener('mousemove', boundary, true);
+  bodyobj.addEventListener('mousemove', boundary, true);
 
-suspenddiv.getElementsByTagName('button')[0].addEventListener('click', pause, true);
+  suspenddiv.getElementsByTagName('button')[0].addEventListener('click', pause, true);
 
-suspenddiv.getElementsByTagName('button')[1].addEventListener('click', quit, true);
+  suspenddiv.getElementsByTagName('button')[1].addEventListener('click', quit, true);
 
-}
+};
 
 selfPokemon.imagenode.style.display = 'none';
 
-
 let zombies = [];
-
 let fires = [];
 let mark = 0;
 let mark2 = 0;
 let backgroundPositionY = 0;
 
 // game start
-const start = function() {
+const start = function () {
   reset();
 
   mainDiv.style.backgroundPositionY = backgroundPositionY + 'px';
@@ -199,24 +193,18 @@ const start = function() {
 
   // create zombies
   if (mark === 30) {
-    mark2 ++;
+    mark2++;
     let a = mainDiv.clientTop;
     let b = a + mainDiv.clientHeight - 70;
     let c = a + mainDiv.clientHeight - 150;
 
+    zombies.push(new Zombie(5, a, b, 60, 70, 1, 360, random(1, 5), 'assets/styles/image/zombie.gif'));
 
-      zombies.push(new Zombie(5, a, b, 60, 70, 1, 360, random(1, 5), 'assets/styles/image/zombie.gif'));
-
-
-     if (mark2 % 10 === 0) {
-       let zombieBoss = new Zombie(10, a, c, 130, 150, 3, 2000, random(1, 5), 'assets/styles/image/zombie-boss.gif');
-
-       zombieBoss.imagenode.setAttribute('class', 'zombie-boss');
-       zombies.push(zombieBoss);
-     }
-
-
-
+    if (mark2 % 10 === 0) {
+      let zombieBoss = new Zombie(10, a, c, 130, 150, 3, 2000, random(1, 5), 'assets/styles/image/zombie-boss.gif');
+      zombieBoss.imagenode.setAttribute('class', 'zombie-boss');
+      zombies.push(zombieBoss);
+    }
 
     mark = 0;
   }
@@ -255,7 +243,6 @@ const start = function() {
   let fireslen = fires.length;
   for (let i = 0; i < fireslen; i++) {
     fires[i].firemove();
-    // delete fire if out side
     if (fires[i].fireimage.offsetTop < 0) {
       mainDiv.removeChild(fires[i].fireimage);
       fires.splice(i, 1);
@@ -267,19 +254,17 @@ const start = function() {
     for (let j = 0; j < zombieslen; j++) {
       //collision test
       if (zombies[j].characterisdie === false) {
-        if (zombies[j].imagenode.offsetLeft + zombies[j].charactersizeX -10 >= selfPokemon.imagenode.offsetLeft && zombies[j].imagenode.offsetLeft <= selfPokemon.imagenode.offsetLeft + selfPokemon.charactersizeX) {
+        if (zombies[j].imagenode.offsetLeft + zombies[j].charactersizeX - 10 >= selfPokemon.imagenode.offsetLeft && zombies[j].imagenode.offsetLeft <= selfPokemon.imagenode.offsetLeft + selfPokemon.charactersizeX) {
           if (zombies[j].imagenode.offsetTop + zombies[j].charactersizeY >= selfPokemon.imagenode.offsetTop  && zombies[j].imagenode.offsetTop <= selfPokemon.imagenode.offsetTop + selfPokemon.charactersizeY) {
             //collision
             enddiv.style.display = 'block';
             enddiv.getElementsByTagName('button')[0].addEventListener('click', quit, true);
 
             characterscore.innerHTML = scores;
-              mainDiv.removeEventListener('mousemove', mouseMove, true);
-              bodyobj.removeEventListener('mousemove', boundary, true);
+            mainDiv.removeEventListener('mousemove', mouseMove, true);
+            bodyobj.removeEventListener('mousemove', boundary, true);
 
             clearInterval(set);
-
-
 
           }
         }
@@ -294,14 +279,14 @@ const start = function() {
           if (fires[k].fireimage.offsetTop <= zombies[j].imagenode.offsetTop + zombies[j].charactersizeY && fires[k].fireimage.offsetTop + fires[k].firesizeY >= zombies[j].imagenode.offsetTop) {
 
             zombies[j].characterhp = zombies[j].characterhp - fires[k].fireattach;
+
             //zombie died
             if (zombies[j].characterhp === 0) {
               scores = scores + zombies[j].characterscore;
               scorelabel.innerHTML = scores;
-              // zombies[j].imagenode.src=zombies[j].characterboomimage;
               zombies[j].characterisdie = true;
             }
-            // delete fire
+
             mainDiv.removeChild(fires[k].fireimage);
             fires.splice(k, 1);
             fireslen--;
@@ -317,7 +302,7 @@ const start = function() {
 
 // start handler
 
-const begin = function(event) {
+const begin = function (event) {
   event.preventDefault();
   $('.fire').remove();
   $('.zombie').remove();
@@ -338,7 +323,6 @@ const begin = function(event) {
   scorediv.style.display = 'block';
   $('.before-start').css('display', 'none');
 
-
   // run start
   set = setInterval(start, 20);
   onCreate();
@@ -352,22 +336,22 @@ const onGetRanking = function () {
     .fail(ui.onError);
 };
 
-const showGameHistory = function(data) {
+const showGameHistory = function (data) {
   let total = 0;
   let highest = 0;
-  let lowest = 0
-  if(data.games[0]){
-  total = data.games.length;
-  highest = data.games[total - 1].zombie;
-  lowest = data.games[0].zombie;
-}
+  let lowest = 0;
+  if (data.games[0]) {
+    total = data.games.length;
+    highest = data.games[total - 1].zombie;
+    lowest = data.games[0].zombie;
+  }
 
   $('#total-games').html(`${total}`);
   $('#highest-score').html(`${highest}`);
   $('#lowest-score').html(`${lowest}`);
   $('#game-history').modal('show');
-
 };
+
 const GameHistory = function () {
   api.getMyGames()
     .done(data => showGameHistory(data))
@@ -385,12 +369,11 @@ const OnCleanHistory = function (event) {
   $('#lowest-score').html('0');
 };
 
-
 const addHandlers = () => {
   $('#startbutton').on('click', begin);
   $('#show-ranking').on('click', onGetRanking);
   $('#game-history-button').on('click', GameHistory);
-  $('#clean-history').on('click',OnCleanHistory);
+  $('#clean-history').on('click', OnCleanHistory);
 
 };
 

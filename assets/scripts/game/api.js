@@ -4,10 +4,6 @@ const app = require('../app');
 const authApi = require('../auth/ui.js');
 let gameId;
 
-// const ui = require('./ui');
-// const getFormFields = require('../../../lib/get-form-fields');
-
-
 const create = function () {
   return $.ajax({
     url: app.api + '/games',
@@ -22,8 +18,6 @@ const create = function () {
     },
   }).then(data => gameId = data.game.id);
 };
-
-
 
 const update = function (data) {
   console.log(data);
@@ -52,7 +46,6 @@ const getMyGames = function () {
   });
 };
 
-
 const getGames = function () {
   return $.ajax({
     url: app.api + '/games',
@@ -63,11 +56,12 @@ const getGames = function () {
   });
 };
 
-const displayRanking = function(data){
+const displayRanking = function (data) {
   $('#ranking-list').html('');
   for (let i = 0; i < data.games.length; i++) {
-    $('#ranking-list').append(`<p>${data.games[i].user.email}: &nbsp&nbsp&nbsp${data.games[i].zombie}</p>`)
+    $('#ranking-list').append(`<p>${data.games[i].user.email}: &nbsp&nbsp&nbsp${data.games[i].zombie}</p>`);
   }
+
   $('#ranking').modal('show');
 };
 
