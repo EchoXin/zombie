@@ -57,6 +57,9 @@ const getGames = function () {
   return $.ajax({
     url: app.api + '/games',
     method: 'GET',
+    headers: {
+      Authorization: 'Token token=' + authApi.app.user.token,
+    },
   });
 };
 
