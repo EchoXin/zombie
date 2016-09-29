@@ -43,7 +43,7 @@
                         <a href='#' id='show-ranking'>Ranking</a>
                     </li>
                     <li>
-                        <a href='#' id='my-games'>Game History</a>
+                        <a href='#' id='game-history-button'>Game History</a>
                     </li>
                 </ul>
             </div>
@@ -108,6 +108,26 @@
       </div>
 
 
+      <div class="modal fade" id="game-history" tabindex="-1" role="dialog" aria-labelledby="game-history" aria-hidden="true">
+        <div class="modal-dialog"  role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div id='game-history'>
+              <p>Total Games: <span id='total-games'></span></p>
+              <p>Hightest Score: <span id='highest-score'></span></p>
+              <p>Lowest Score: <span id='lowest-score'></span></p>
+            </div>
+            <div class="modal-footer">
+              <input type="submit" value="Clean History!" class="btn btn-default">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
 
 
 
@@ -135,12 +155,7 @@
 
     <div id='ranking'>
     </div>
-    <div id='game-history'>
-      <p>Total Games: <span id='total-games'></span></p>
-      <p>Hightest Score: <span id='highest-score'></span></p>
-      <p>Lowest Score: <span id='lowest-score'></span></p>
-      <button id='delete-history'>Delete History</button>
-    </div>
+
 
     </body>
 </html>

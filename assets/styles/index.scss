@@ -111,7 +111,11 @@ body {
   height: 500px;
 }
 
-
+#game-history{
+  font-family: 'Trocchi', serif;
+  font-size: 40px;
+  text-align: center;
+}
 
 #sign-out{
   display: none;
@@ -124,6 +128,8 @@ body {
 #startbutton{
   display: none;
 }
+
+
 
 #maindiv {
   margin-top: 20px;
@@ -140,6 +146,7 @@ body {
 }
 
 #scorediv {
+  color:white;
   font-size: 16px;
   font-weight: bold;
   position: absolute;
@@ -148,10 +155,7 @@ body {
   display: none;
 }
 
-#scorediv {
-  font-size: 18px;
-  font-weight: bold;
-}
+
 
 #suspenddiv {
   position: absolute;

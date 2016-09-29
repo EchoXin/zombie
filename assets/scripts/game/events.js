@@ -360,6 +360,7 @@ const showGameHistory = function(data) {
   $('#total-games').html(`${total}`);
   $('#highest-score').html(`${highest}`);
   $('#lowest-score').html(`${lowest}`);
+  $('#game-history').modal('show');
 
 };
 const GameHistory = function () {
@@ -374,7 +375,7 @@ const GameHistory = function () {
 const addHandlers = () => {
   $('#startbutton').on('click', begin);
   $('#show-ranking').on('click', onGetRanking);
-  $('#my-games').on('click', GameHistory);
+  $('#game-history-button').on('click', GameHistory);
 
 };
 
