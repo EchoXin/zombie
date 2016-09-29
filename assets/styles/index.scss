@@ -113,15 +113,26 @@ body {
 
 #game-history{
   font-family: 'Trocchi', serif;
-  font-size: 40px;
+  font-size: 30px;
   text-align: center;
 }
 
-#sign-out{
+#ranking{
+  font-family: 'Trocchi', serif;
+  font-size: 20px;
+  text-align: center;
+  padding: 20px,0;
+}
+#show-ranking{
   display: none;
 }
-
+#game-history-button{
+  display: none;
+}
 #change-password-button{
+  display: none;
+}
+#sign-out{
   display: none;
 }
 

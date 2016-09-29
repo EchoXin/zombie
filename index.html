@@ -25,25 +25,25 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a class='after-sign-in'href='#' data-toggle="modal" data-target='#sign-in'>Sign in</a>
+                        <a class='before-sign-in'href='#' data-toggle="modal" data-target='#sign-in'>Sign in</a>
                     </li>
                     <li>
-                        <a class='after-sign-in' href='#' data-toggle="modal" data-target='#sign-up'>Sign up</a>
+                        <a class='before-sign-in' href='#' data-toggle="modal" data-target='#sign-up'>Sign up</a>
                     </li>
                     <li>
-                        <a href='#' data-toggle="modal" data-target='#change-password' id='change-password-button'>Change password</a>
+                        <a href='#' class='after-sign-in' data-toggle="modal" data-target='#change-password' id='change-password-button'>Change password</a>
                     </li>
                     <li>
-                        <a href='#' id='sign-out'>Sign out</a>
+                        <a href='#' class='after-sign-in' id='sign-out'>Sign out</a>
                     </li>
                     <li>
-                        <a href='#' id='startbutton'>Start game</a>
+                        <a href='#' class='after-sign-in' id='startbutton'>Start game</a>
                     </li>
                     <li>
-                        <a href='#' id='show-ranking'>Ranking</a>
+                        <a href='#' class='after-sign-in' id='show-ranking'>Ranking</a>
                     </li>
                     <li>
-                        <a href='#' id='game-history-button'>Game History</a>
+                        <a href='#' class='after-sign-in' id='game-history-button'>Game History</a>
                     </li>
                 </ul>
             </div>
@@ -114,13 +114,26 @@
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
-            <div id='game-history'>
+            <div>
               <p>Total Games: <span id='total-games'></span></p>
               <p>Hightest Score: <span id='highest-score'></span></p>
               <p>Lowest Score: <span id='lowest-score'></span></p>
             </div>
             <div class="modal-footer">
               <input type="submit" value="Clean History!" class="btn btn-default">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="modal fade" id="ranking" tabindex="-1" role="dialog" aria-labelledby="ranking" aria-hidden="true">
+        <div class="modal-dialog"  role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div id='ranking-list'>
             </div>
           </div>
         </div>
@@ -152,9 +165,6 @@
         </div>
     </div>
 
-
-    <div id='ranking'>
-    </div>
 
 
     </body>

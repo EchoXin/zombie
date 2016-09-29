@@ -4,11 +4,12 @@ const app = require('../app');
 
 const signInSuccess = (data) => {
   app.user = data.user;
-  $('#change-password-button').css('display', 'block');
-  $('#sign-out').css('display', 'block');
-  $('#startbutton').css('display', 'block');
-  $('#rank').css('display', 'block');
-  $('.after-sign-in').css('display', 'none');
+  // $('#change-password-button').css('display', 'block');
+  // $('#sign-out').css('display', 'block');
+  // $('#startbutton').css('display', 'block');
+  // $('#rank').css('display', 'block');
+  $('.before-sign-in').css('display','none');
+  $('.after-sign-in').css('display', 'block');
 
 };
 
@@ -22,11 +23,9 @@ const failure = (error) => {
 
 const signOutSuccess = () => {
   delete app.user;
-  $('#change-password-button').css('display', 'none');
-  $('#sign-out').css('display', 'none');
-  $('#startbutton').css('display', 'none');
-  $('#rank').css('display', 'none');
-  $('.after-sign-in').css('display', 'block');
+  $('.before-sign-in').css('display','block');
+  $('.after-sign-in').css('display', 'none');
+
   $('#maindiv').css('display', 'none');
   $('.before-start').css('display', 'block');
 

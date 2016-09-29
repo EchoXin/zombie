@@ -41,7 +41,7 @@ const update = function (data) {
   });
 };
 
-const getMyGames = function (data) {
+const getMyGames = function () {
   return $.ajax({
     url: app.api + '/mygames',
     method: 'GET',
@@ -61,11 +61,11 @@ const getGames = function () {
 };
 
 const displayRanking = function(data){
-  console.log(data);
-  let rankingTemplate = require('./ranking.handlebars');
-  $('#ranking').html(rankingTemplate({
-      games: data.games,
-    }));
+  $('#ranking-list').html('');
+  for (let i = 0; i < data.games.length; i++) {
+    $('#ranking-list').append(`<p>${data.games[i].user.email}: &nbsp&nbsp&nbsp${data.games[i].zombie}</p>`)
+  }
+  $('#ranking').modal('show');
 };
 
 
